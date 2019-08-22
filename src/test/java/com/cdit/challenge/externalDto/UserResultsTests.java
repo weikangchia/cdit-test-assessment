@@ -20,7 +20,8 @@ public class UserResultsTests {
         UserResults userResults = new UserResults();
         userResults.setResults(null);
 
-        String actualResult = new ObjectMapper().writeValueAsString(userResults);;
+        String actualResult = new ObjectMapper().writeValueAsString(userResults);
+
         String expectedResult = "{\"results\":null}";
 
         assertThat(actualResult).isEqualTo(expectedResult);
@@ -33,7 +34,8 @@ public class UserResultsTests {
         UserResults userResults = new UserResults();
         userResults.setResults(emptyUsers);
 
-        String actualResult = new ObjectMapper().writeValueAsString(userResults);;
+        String actualResult = new ObjectMapper().writeValueAsString(userResults);
+
         String expectedResult = "{\"results\":[]}";
 
         assertThat(actualResult).isEqualTo(expectedResult);
@@ -47,7 +49,8 @@ public class UserResultsTests {
         UserResults userResults = new UserResults();
         userResults.setResults(users);
 
-        String actualResult = new ObjectMapper().writeValueAsString(userResults);;
+        String actualResult = new ObjectMapper().writeValueAsString(userResults);
+
         String expectedResult = "{\"results\":[{\"name\":\"John\",\"salary\":1000.00}]}";
 
         assertThat(actualResult).isEqualTo(expectedResult);
@@ -62,7 +65,8 @@ public class UserResultsTests {
         UserResults userResults = new UserResults();
         userResults.setResults(users);
 
-        String actualResult = new ObjectMapper().writeValueAsString(userResults);;
+        String actualResult = new ObjectMapper().writeValueAsString(userResults);
+
         String expectedResult = "{\"results\":[{\"name\":\"John\",\"salary\":1000.00},{\"name\":\"Mary Posa\",\"salary\":2500.05}]}";
 
         assertThat(actualResult).isEqualTo(expectedResult);

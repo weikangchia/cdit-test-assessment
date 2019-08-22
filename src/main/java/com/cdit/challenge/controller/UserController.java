@@ -4,11 +4,18 @@ import com.cdit.challenge.externalDto.UserResults;
 import com.cdit.challenge.model.User;
 import com.cdit.challenge.repository.UserRepository;
 import com.cdit.challenge.specification.UserSpecification;
+import com.cdit.challenge.util.UserUtil;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 @RestController
@@ -25,5 +32,14 @@ public class UserController {
         userResults.setResults(users);
 
         return userResults;
+    }
+
+    @RequestMapping(value = "/users/upload", method = RequestMethod.POST)
+    public void uploadUsers(@RequestParam("file") MultipartFile userUploadFile) throws IOException {
+        if (!userUploadFile.isEmpty()) {
+            CSVParser userParseResults = CSVFormat.EXCEL.withHeader().parse(new InputStreamReader((userUploadFile.getInputStream())));
+            List<User> users = UserUtil.parseCsvResults(userParseResults);
+            userRepository.saveAll(users);
+        }
     }
 }

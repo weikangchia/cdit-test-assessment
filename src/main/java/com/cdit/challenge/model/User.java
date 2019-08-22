@@ -1,9 +1,9 @@
 package com.cdit.challenge.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.cdit.challenge.externalDto.CurrencyDoubleSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -17,8 +17,20 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private UUID id;
 
     private String name;
+    @Getter(AccessLevel.NONE)
     private int salary;
+
+    public User(String name, int salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    @JsonSerialize(using = CurrencyDoubleSerializer.class)
+    public double getSalary() {
+        return salary / 100.00;
+    }
 }

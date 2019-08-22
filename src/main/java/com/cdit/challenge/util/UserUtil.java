@@ -3,12 +3,16 @@ package com.cdit.challenge.util;
 import com.cdit.challenge.model.User;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserUtil {
+    private static final Logger LOG = LoggerFactory.getLogger(UserUtil.class);
+
     public static String parseRawName(String rawName) {
         return rawName.trim();
     }
@@ -40,7 +44,7 @@ public class UserUtil {
 
         for (int i = 0; i < userCsvRecords.size(); i++) {
             if (userCsvRecords.get(i).size() != 2) {
-                System.out.println("Invalid format at line " + i);
+                LOG.warn("Invalid format at line " + i);
             }
 
             String rawName = userCsvRecords.get(i).get(0);
@@ -49,8 +53,7 @@ public class UserUtil {
             if (isValidName(rawName) && isValidSalary(rawSalary)) {
                 users.add(new User(parseRawName(rawName), parseRawSalary(rawSalary)));
             } else {
-                System.out.println(rawSalary);
-                System.out.println("Wrong format at line " + i);
+                LOG.warn("Wrong format at line " + i);
             }
         }
 

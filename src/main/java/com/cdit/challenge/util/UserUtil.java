@@ -45,6 +45,7 @@ public class UserUtil {
         for (int i = 0; i < userCsvRecords.size(); i++) {
             if (userCsvRecords.get(i).size() != 2) {
                 LOG.warn("Invalid format at line " + i);
+                continue;
             }
 
             String rawName = userCsvRecords.get(i).get(0);

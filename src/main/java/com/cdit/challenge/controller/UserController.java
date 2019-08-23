@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -46,13 +47,12 @@ public class UserController {
                 CSVParser userParseResults = CSVFormat.EXCEL.withHeader().parse(new InputStreamReader((userUploadFile.getInputStream())));
                 List<User> users = UserUtil.parseCsvResults(userParseResults);
                 userRepository.saveAll(users);
+                return ResponseEntity.ok(Collections.singletonMap("message", "Uploaded " + users.size() + " users"));
             } catch (Exception ex) {
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }
-
-            return new ResponseEntity(HttpStatus.OK);
         } else {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "File is empty"));
         }
     }
 }

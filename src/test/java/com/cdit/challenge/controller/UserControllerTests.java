@@ -35,7 +35,7 @@ public class UserControllerTests {
     private UserRepository userRepository;
 
     @Test
-    public void shouldReturnHttpOk_WhenUserRepoReturnEmpty() throws Exception {
+    public void getUsers_ShouldReturnHttpOk_WhenUserRepoReturnEmpty() throws Exception {
         List<User> emptyUsers = new ArrayList<>();
 
         when(userRepository.findAll(UserSpecification.hasValidSalary())).thenReturn(emptyUsers);
@@ -45,7 +45,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void shouldReturnEmptyJson_WhenUserRepoReturnEmpty() throws Exception {
+    public void getUsers_ShouldReturnEmptyJson_WhenUserRepoReturnEmpty() throws Exception {
         List<User> emptyUsers = new ArrayList<>();
 
         UserResults expectedEmptyUserResults = new UserResults();
@@ -58,7 +58,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void shouldReturnHttpOk_WhenUserRepoReturn1User() throws Exception {
+    public void getUsers_ShouldReturnHttpOk_WhenUserRepoReturn1User() throws Exception {
         List<User> users = new ArrayList<>();
         users.add(new User("John", 100000));
 
@@ -69,7 +69,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void shouldReturn1UserResult_WhenUserRepoReturn1User() throws Exception {
+    public void getUsers_ShouldReturn1UserResult_WhenUserRepoReturn1User() throws Exception {
         List<User> users = new ArrayList<>();
         users.add(new User("John", 100000));
 
@@ -83,7 +83,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void shouldReturnHttpServerError_WhenUserRepoThrowError() throws Exception {
+    public void getUsers_ShouldReturnHttpServerError_WhenUserRepoThrowError() throws Exception {
         when(userRepository.findAll(UserSpecification.hasValidSalary())).thenThrow();
         mockMvc.perform(get("/users"))
                 .andExpect(status().isInternalServerError());
@@ -91,7 +91,7 @@ public class UserControllerTests {
 
     // uploadUsers
     @Test
-    public void shouldReturnHttpBadRequest_WhenUserFileIsEmpty() throws Exception {
+    public void uploadUsers_ShouldReturnHttpBadRequest_WhenUserFileIsEmpty() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.multipart("/users/upload")
                 .file(new MockMultipartFile("file", "empty.csv", "text/plain", "".getBytes())))
                 .andExpect(status().is4xxClientError())
@@ -99,7 +99,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void shouldReturnOk_WhenUserFileIsValid() throws Exception {
+    public void uploadUsers_ShouldReturnOk_WhenUserFileIsValid() throws Exception {
         List<User> users = new ArrayList<>();
         users.add(new User("Jack", 100));
 
@@ -110,7 +110,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void shouldReturnUploadedUserSize_WhenUserFileIsValid() throws Exception {
+    public void uploadUsers_ShouldReturnUploadedUserSize_WhenUserFileIsValid() throws Exception {
         List<User> users = new ArrayList<>();
         users.add(new User("Jack", 100));
 

@@ -29,8 +29,10 @@
 ### Note
 1. CSV File<br/>
    To upload the user csv file, you need to prepare the csv file that meet the following requirements:
-   - name
-   - salary (in cents)
+   - first line: header (name, salary)
+   - subsequent line:
+      - name
+      - salary (in cents)
    
    e.g.
    ```

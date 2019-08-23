@@ -105,48 +105,48 @@ public class UserUtilTests {
     // parseRawSalary
     @Test
     public void parseRawSalary_ShouldReturnSalaryInInteger_WhenRawSalaryIsPositiveInteger() {
-        assertThat(200).isEqualTo(UserUtil.parseRawSalary("200"));
+        assertThat(UserUtil.parseRawSalary("200")).isEqualTo(200);
     }
 
     @Test
     public void parseRawSalary_ShouldReturnSalaryInInteger_WhenRawSalaryIsNegativeInteger() {
-        assertThat(-200).isEqualTo(UserUtil.parseRawSalary("-200"));
+        assertThat(UserUtil.parseRawSalary("-200")).isEqualTo(-200);
     }
 
     @Test
     public void parseRawSalary_ShouldReturnSalaryInInteger_WhenRawSalaryIsPositiveIntegerAndHasLeadingSpace() {
-        assertThat(200).isEqualTo(UserUtil.parseRawSalary("  200"));
+        assertThat(UserUtil.parseRawSalary("  200")).isEqualTo(200);
     }
 
     @Test
     public void parseRawSalary_ShouldReturnSalaryInInteger_WhenRawSalaryIsPositiveIntegerAndHasTrailingSpace() {
-        assertThat(200).isEqualTo(UserUtil.parseRawSalary("200  "));
+        assertThat(UserUtil.parseRawSalary("200  ")).isEqualTo(200);
     }
 
     @Test
     public void parseRawSalary_ShouldReturnSalaryInInteger_WhenRawSalaryIsPositiveIntegerAndHasBothLeadingAndTrailingSpace() {
-        assertThat(200).isEqualTo(UserUtil.parseRawSalary(" 200  "));
+        assertThat(UserUtil.parseRawSalary(" 200  ")).isEqualTo(200);
     }
 
     // parseRawName
     @Test
     public void parseRawName_ShouldReturnNameInString_WhenRawNameIsValid() {
-        assertThat("John").isEqualTo(UserUtil.parseRawName("John"));
+        assertThat(UserUtil.parseRawName("John")).isEqualTo("John");
     }
 
     @Test
     public void parseRawName_ShouldReturnTrimmedNameInString_WhenRawNameHasLeadingSpace() {
-        assertThat("John").isEqualTo(UserUtil.parseRawName("   John"));
+        assertThat(UserUtil.parseRawName("   John")).isEqualTo("John");
     }
 
     @Test
     public void parseRawName_ShouldReturnTrimmedNameInString_WhenRawNameHasTrailingSpace() {
-        assertThat("John").isEqualTo(UserUtil.parseRawName("John  "));
+        assertThat(UserUtil.parseRawName("John  ")).isEqualTo("John");
     }
 
     @Test
     public void parseRawName_ShouldReturnTrimmedNameInString_WhenRawNameHasBothLeadingAndTrailingSpace() {
-        assertThat("John").isEqualTo(UserUtil.parseRawName(" John  "));
+        assertThat(UserUtil.parseRawName(" John  ")).isEqualTo("John");
     }
 
     // parseCsvResults
@@ -155,7 +155,7 @@ public class UserUtilTests {
         CSVParser userParseResults = CSVParser.parse("name,salary\n", CSVFormat.DEFAULT);
         List<User> parsedUsers = UserUtil.parseCsvResults(userParseResults);
 
-        assertThat(0).isEqualTo(parsedUsers.size());
+        assertThat(parsedUsers.size()).isEqualTo(0);
     }
 
     @Test
@@ -163,9 +163,9 @@ public class UserUtilTests {
         CSVParser userParseResults = CSVParser.parse("name,salary\nMary,10000", CSVFormat.DEFAULT);
         List<User> parsedUsers = UserUtil.parseCsvResults(userParseResults);
 
-        assertThat(1).isEqualTo(parsedUsers.size());
-        assertThat("Mary").isEqualTo(parsedUsers.get(0).getName());
-        assertThat(100.00).isEqualTo(parsedUsers.get(0).getSalary());
+        assertThat(parsedUsers.size()).isEqualTo(1);
+        assertThat(parsedUsers.get(0).getName()).isEqualTo("Mary");
+        assertThat(parsedUsers.get(0).getSalary()).isEqualTo(100.00);
     }
 
     @Test
@@ -173,8 +173,8 @@ public class UserUtilTests {
         CSVParser userParseResults = CSVParser.parse("name,salary\nMary,10000\nabcdef", CSVFormat.DEFAULT);
         List<User> parsedUsers = UserUtil.parseCsvResults(userParseResults);
 
-        assertThat(1).isEqualTo(parsedUsers.size());
-        assertThat("Mary").isEqualTo(parsedUsers.get(0).getName());
-        assertThat(100.00).isEqualTo(parsedUsers.get(0).getSalary());
+        assertThat(parsedUsers.size()).isEqualTo(1);
+        assertThat(parsedUsers.get(0).getName()).isEqualTo("Mary");
+        assertThat(parsedUsers.get(0).getSalary()).isEqualTo(100.00);
     }
 }

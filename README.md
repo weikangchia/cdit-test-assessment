@@ -20,11 +20,11 @@
 
 ### APIs
 1. Upload user<br/>
-   POST: `/users/upload`<br/>
-   *Body (formdata)*<br/>
+   **POST**: `/users/upload`<br/>
+   **Body (formdata)**<br/>
    - file
 2. Get users<br/>
-   GET: `/users`
+   **GET**: `users`
 
 ### Note
 1. CSV File<br/>

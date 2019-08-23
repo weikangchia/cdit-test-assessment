@@ -26,13 +26,17 @@ public class UserController {
     private UserRepository userRepository;
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public UserResults getUsers() {
-        List<User> users = userRepository.findAll(UserSpecification.hasValidSalary());
+    public ResponseEntity getUsers() {
+        try {
+            List<User> users = userRepository.findAll(UserSpecification.hasValidSalary());
 
-        UserResults userResults = new UserResults();
-        userResults.setResults(users);
+            UserResults userResults = new UserResults();
+            userResults.setResults(users);
 
-        return userResults;
+            return ResponseEntity.ok(userResults);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @RequestMapping(value = "/users/upload", method = RequestMethod.POST)

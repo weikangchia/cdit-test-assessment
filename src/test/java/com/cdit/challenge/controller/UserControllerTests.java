@@ -76,4 +76,11 @@ public class UserControllerTests {
         mockMvc.perform(get("/users"))
                 .andExpect(content().json(new ObjectMapper().writeValueAsString(expectedUserResults)));
     }
+
+    @Test
+    public void shouldReturnHttpServerError_WhenUserRepoThrowError() throws Exception {
+        when(userRepository.findAll(UserSpecification.hasValidSalary())).thenThrow();
+        mockMvc.perform(get("/users"))
+                .andExpect(status().isInternalServerError());
+    }
 }

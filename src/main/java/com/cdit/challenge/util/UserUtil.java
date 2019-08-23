@@ -22,7 +22,7 @@ public class UserUtil {
     }
 
     public static boolean isValidName(String rawName) {
-        return rawName != null && rawName.length() > 0;
+        return rawName != null && rawName.trim().length() > 0;
     }
 
     public static boolean isValidSalary(String rawSalary) {

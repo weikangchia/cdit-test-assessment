@@ -66,6 +66,16 @@ public class UserUtilTests {
         assertThat(UserUtil.isValidSalary(null)).isFalse();
     }
 
+    @Test
+    public void isValidSalary_ShouldReturnFalse_WhenRawSalaryIsJustSpaces() {
+        assertThat(UserUtil.isValidSalary("    ")).isFalse();
+    }
+
+    @Test
+    public void isValidSalary_ShouldReturnFalse_WhenRawSalaryIsJustTabs() {
+        assertThat(UserUtil.isValidSalary("\t\t")).isFalse();
+    }
+
     // isValidName
     @Test
     public void isValidName_ShouldReturnTrue_WhenRawNameIsValidString() {
@@ -80,6 +90,16 @@ public class UserUtilTests {
     @Test
     public void isValidName_ShouldReturnFalse_WhenRawNameIsEmpty() {
         assertThat(UserUtil.isValidName("")).isFalse();
+    }
+
+    @Test
+    public void isValidName_ShouldReturnFalse_WhenRawNameIsJustSpaces() {
+        assertThat(UserUtil.isValidName("    ")).isFalse();
+    }
+
+    @Test
+    public void isValidName_ShouldReturnFalse_WhenRawNameIsJustTabs() {
+        assertThat(UserUtil.isValidName("\t\t")).isFalse();
     }
 
     // parseRawSalary
